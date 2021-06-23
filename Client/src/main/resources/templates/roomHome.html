@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head"></head>
+
+<body>
+    <nav th:replace="layout :: header"></nav>
+	
+    <div class="container" id="main-content">
+        <div class="row">
+            <div class="col-6 no-padding">
+                <form class="form-inline" action="#" th:action="@{/ktxRoom/search}" method="get">
+   					<input class="form-control mr-sm-2" type="search" name="soPhong" />
+    				<button class="btn btn-primary" type="submit">
+        				<i class="fa fa-search"></i> Search
+    				</button>
+				</form>
+            </div>
+
+            <a href="#" th:href="@{/ktxRoom/add}" class="btn btn-success float-right">
+    			<i class="fa fa-plus-square"></i> Add new Room
+			</a>
+			
+			<a href="#" th:href="@{/}" class="btn btn-secondary float-right" style="margin-left: 20px">
+    			<i class="fa fa-undo" aria-hidden="true"></i> Trở về
+			</a>
+			
+        </div>
+
+        <div class="row mt-4">
+        	<div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show" role="alert">
+        		<span th:text="${successMessage}"></span>
+        		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            		<span aria-hidden="true">&times;</span>
+       			</button>
+    		</div>
+    		
+            <th:block th:if="${#lists.isEmpty(rooms)}">
+                <h5>No rooms</h5>
+                
+            </th:block>
+
+            <th:block th:unless="${#lists.isEmpty(rooms)}">
+                <div class="table-responsive">
+                    <h5>List of rooms</h5>
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        	<tr>
+				                <th>#</th>
+				                <th>Số phòng</th>
+				                <th>Loại phòng</th>
+				                <th>Đơn giá</th>
+				                <th>Số người tối đa</th>
+				                <th>Danh sách sinh viên</th>
+				                <th>Action</th>
+            				</tr>
+            			</thead>
+            			<tbody>
+				            <tr th:each="room,iterStat : ${rooms}">
+				                <th scope="row" th:text="${iterStat.count}"></th>
+				                <td th:text="${room.soPhong}"></td>
+				                <td th:text="${room.loaiPhong}"></td>
+				                <td th:text="${room.donGia}"></td>
+				                <td th:text="${room.soNguoiToiDa}"></td>
+				                <td><a href="#" th:href="@{/ktxRoom/{id}/viewStudent(id=${room.id})}">Xem</a></td>
+				                <td>
+                            		<a href="#" th:href="@{/ktxRoom/{id}/edit(id=${room.id})}" class="mr-sm-2 text-primary"><i class="fa fa-pencil"></i></a>
+                            		<a href="#" th:href="@{/ktxRoom/{id}/delete(id=${room.id})}" class="mr-sm-2 text-danger"><i class="fa fa-trash"></i></a>
+                            		<a href="#" th:href="@{/ktxRoom/{id}/addStudent(id=${room.id})}" class="mr-sm-2 text-secondary"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                       			</td>
+				            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </th:block>
+        </div>
+    </div><!-- /.container -->
+
+</body>
+</html>

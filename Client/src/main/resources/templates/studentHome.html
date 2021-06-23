@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head"></head>
+
+<body>
+    <nav th:replace="layout :: header"></nav>
+	
+    <div class="container" id="main-content">
+        <div class="row">
+            <div class="col-6 no-padding">
+                <form class="form-inline" action="#" th:action="@{/ktx/student/search}" method="get">
+   					<input class="form-control mr-sm-2" type="search" name="msv" />
+    				<button class="btn btn-primary" type="submit">
+        				<i class="fa fa-search"></i> Search
+    				</button>
+				</form>
+            </div>
+
+            <a href="#" th:href="@{/ktx/student/add}" class="btn btn-success float-right">
+    			<i class="fa fa-plus-square"></i> New student
+			</a>
+			
+			<a href="#" th:href="@{/}" class="btn btn-secondary float-right" style="margin-left: 20px">
+    			<i class="fa fa-undo" aria-hidden="true"></i> Trở về
+			</a>
+			
+        </div>
+
+        <div class="row mt-4">
+        	<div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show" role="alert">
+        		<span th:text="${successMessage}"></span>
+        		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            		<span aria-hidden="true">&times;</span>
+       			</button>
+    		</div>
+    		
+            <th:block th:if="${#lists.isEmpty(students)}">
+                <h5>No students</h5>
+                
+            </th:block>
+
+            <th:block th:unless="${#lists.isEmpty(students)}">
+                <div class="table-responsive">
+                    <h5>List of students</h5>
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        	<tr>
+				                <th>#</th>
+				                <th>MSV</th>
+				                <th>Tên</th>
+				                <th>CMT</th>
+				                <th>Ngày Sinh</th>
+				                <th>Lớp</th>
+				                <th>Quê quán</th>
+				                <th>Dịch vụ sử dụng</th>
+				                <th>Action</th>
+            				</tr>
+            			</thead>
+            			<tbody>
+				            <tr th:each="student,iterStat : ${students}">
+				                <th scope="row" th:text="${iterStat.count}"></th>
+				                <td th:text="${student.msv}"></td>
+				                <td th:text="${student.ten}"></td>
+				                <td th:text="${student.cmt}"></td>
+				                <td th:text="${student.ngaySinh}"></td>
+				                <td th:text="${student.lop}"></td>
+				                <td th:text="${student.queQuan}"></td>
+				                <td><a href="#" th:href="@{/ktx/student/{id}/viewService(id=${student.id})}">Xem</a></td>
+				                <td>
+                            		<a href="#" th:href="@{/ktx/student/{id}/edit(id=${student.id})}" class="mr-sm-2 text-primary"><i class="fa fa-pencil"></i></a>
+                            		<a href="#" th:href="@{/ktx/student/{id}/delete(id=${student.id})}" class="mr-sm-2 text-danger"><i class="fa fa-trash"></i></a>
+                            		<a href="#" th:href="@{/guest/{id}/add(id=${student.id})}" class="text-secondary"><i class="mr-sm-2 fa fa-user" aria-hidden="true"></i></a>
+                            		<a href="#" th:href="@{/ktx/student/{id}/selectService(id=${student.id})}" class="text-success"><i class="mr-sm-2 fa fa-plus" aria-hidden="true"></i></a>
+                       			</td>
+				            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </th:block>
+        </div>
+    </div><!-- /.container -->
+
+</body>
+</html>

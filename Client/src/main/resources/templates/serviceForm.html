@@ -1,0 +1,33 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head"></head>
+
+<body>
+    <nav th:replace="layout :: header"></nav>
+
+    <div class="container" id="main-content">
+        <div class="row d-flex justify-content-center">
+            <form style="min-width: 300px;" action="#" th:action="@{/ktxService/save}" th:object="${service}" method="POST" >
+   				<h5 class="text-center">Service Form</h5>
+
+				<input type="hidden" th:field="*{maDichVu}" />
+				
+			    <div class="form-group">
+			    	<label for="ten">Tên dịch vụ</label>
+			        <input id="ten" class="form-control" type="text" placeholder="Tên" th:field="*{tenDichVu}"  />
+			    </div>
+
+			    <div class="form-group">
+			    	<label for="donGia">Đơn giá</label>
+			        <input id="donGia" class="form-control" type="text" placeholder="Đơn giá" th:field="*{donGia}"   />
+			    </div>
+
+			    <div class="form-group">
+			        <button type="submit" class="btn btn-block btn-primary">
+			            <i class="fa fa-save"></i> Save
+			        </button>
+			    </div>
+			</form>
+        </div>
+    </div>
+</body>
+</html>

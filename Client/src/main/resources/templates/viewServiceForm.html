@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head"></head>
+
+<body>
+    <nav th:replace="layout :: header"></nav> 
+    <div class="container" id="main-content">
+        <div class="row">
+        </div>
+        <div class="row mt-4">
+            <th:block th:if="${#lists.isEmpty(usedServices)}">
+                <h5>No used services</h5>
+            </th:block>
+
+            <th:block th:unless="${#lists.isEmpty(usedServices)}">
+                <div class="table-responsive">
+                    <h5>List of used services</h5>
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        	<tr>
+				                <th>#</th>
+				                <th>Tên dịch vụ</th>
+				                <th>Ngày sử dụng</th>
+				                <th>Giá</th>
+            				</tr>
+            			</thead>
+            			<tbody>
+				            <tr th:each="s,iterStat : ${usedServices}">
+				                <th scope="row" th:text="${iterStat.count}"></th>
+				                <td th:text="${s.service.tenDichVu}"></td>
+				                <td th:text="${s.ngaySuDung}"></td>
+				                <td th:text="${s.service.donGia}"></td>
+				            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </th:block>
+        </div>
+    </div><!-- /.container -->
+
+</body>
+</html>

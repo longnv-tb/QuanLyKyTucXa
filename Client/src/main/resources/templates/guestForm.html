@@ -1,0 +1,55 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head"></head>
+
+<body>
+    <nav th:replace="layout :: header"></nav>
+
+    <div class="container" id="main-content">
+        <div class="row d-flex justify-content-center">
+            <form style="min-width: 300px;" action="#" th:action="@{/guest/save}" th:object="${guest}" method="POST">
+   				<h5 class="text-center">Guest form</h5>
+				
+				<input id="cmt" class="form-control" type="hidden" th:field="*{id}"/>
+
+			    <div class="form-group">
+			    	<label for="cmt">Số chứng minh thư</label>
+			        <input id="cmt" class="form-control" type="text" placeholder="Số chứng minh thư" name="cmt" th:field="*{cmt}"/>
+			    </div>
+
+			    <div class="form-group">
+			    	<label for="ten">Tên</label>
+			        <input id="ten" class="form-control" type="text" placeholder="Tên" name="ten" th:field="*{ten}" />
+			    </div>
+			
+			    <div class="form-group">
+			    	<label for="ngaySinh">Ngày sinh</label>
+			        <input id="ngaySinh" class="form-control" type="date" placeholder="Ngày sinh" name="ngaySinh" th:field="*{ngaySinh}"/>
+			    </div>
+			    
+			    <div class="form-group">
+			    	<label for="ngayden">Ngày đến chơi</label>
+			        <input id="ngayden" class="form-control" type="date" name="ngayDenChoi" th:field="*{ngayDenChoi}"/>
+			    </div>
+<!-- 			    
+			     <div class="form-group">
+			        <input class="form-control" type="hidden" th:field="*{student}"/>
+			    </div>
+		    	
+		    	<div class="form-group">
+		    		<label  for="optionStudent">Sinh viên:</label>
+				    <select id="optionStudent" style="width:100%; height:40px" name="id">
+				    	<option th:each="a:${students}" th:value="${a.id}" th:text="${a.msv}"></option>
+				    </select>
+				</div>
+-->           
+            	<div class="form-group">
+			        <button type="submit" class="btn btn-block btn-primary">
+			            <i class="fa fa-save"></i> Save
+			        </button>
+			    </div>
+			 </form>
+			 
+        </div>
+    </div>
+</body>
+</html>

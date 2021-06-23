@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head"></head>
+
+<body>
+    <nav th:replace="layout :: header"></nav> 
+    <div class="container" id="main-content">
+        <div class="row">
+            <div class="col-6 no-padding">
+                <form class="form-inline" action="#" th:action="@{/guest/search}" method="get">
+   					<input class="form-control mr-sm-2" type="search" name="tenKhach" />
+    				<button class="btn btn-primary" type="submit">
+        				<i class="fa fa-search"></i> Search
+    				</button>
+				</form>
+            </div>
+<!--  
+            <a href="#" th:href="@{/guest/add}" class="btn btn-success float-right">
+    			<i class="fa fa-plus-square"></i> New guest
+			</a>
+-->			
+		 	<a href="#" th:href="@{/}" class="btn btn-secondary float-right" style="margin-left: 20px">
+    			<i class="fa fa-undo" aria-hidden="true"></i> Trở về
+			</a>
+        </div>
+        <div class="row mt-4">
+        	<div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show" role="alert">
+        		<span th:text="${successMessage}"></span>
+        		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            		<span aria-hidden="true">&times;</span>
+       			</button>
+    		</div>
+    		
+            <th:block th:if="${#lists.isEmpty(guests)}">
+                <h5>No guest</h5>
+            </th:block>
+
+            <th:block th:unless="${#lists.isEmpty(guests)}">
+                <div class="table-responsive">
+                    <h5>List of guests</h5>
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        	<tr>
+				                <th>#</th>
+				                <th>CMT</th>
+				                <th>Tên khách</th>
+				                <th>Ngày sinh</th>
+				                <th>Ngày đến chơi</th>
+				                <th>Tên sinh viên</th>
+				                <th>Action</th>
+            				</tr>
+            			</thead>
+            			<tbody>
+				            <tr th:each="guest,iterStat : ${guests}">
+				                <th scope="row" th:text="${iterStat.count}"></th>
+				                <td th:text="${guest.cmt}"></td>
+				                <td th:text="${guest.ten}"></td>
+				                <td th:text="${guest.ngaySinh}"></td>
+				                <td th:text="${guest.ngayDenChoi}"></td>
+				                <td th:text="${guest.student.ten}"></td>
+				        	<td>
+                            		<a href="#" th:href="@{/guest/{id}/edit(id=${guest.id})}" class="mr-sm-2 text-primary"><i class="fa fa-pencil"></i></a>
+                            		<a href="#" th:href="@{/guest/{id}/delete(id=${guest.id})}" class="text-danger"><i class="fa fa-trash"></i></a>
+                       			</td>
+				            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </th:block>
+        </div>
+    </div><!-- /.container -->
+
+</body>
+</html>
